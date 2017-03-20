@@ -15,13 +15,12 @@ namespace InstaSharp.Endpoints
     public class Tags : InstagramApi
     {
         /// <summary>
-        /// The Instagram Api disallows '#', spaces, and special characters. It allows underscore
+        /// The Instagram Api disallows '#' and spaces. It allows underscore
         /// </summary>
         /// <param name="tagName"></param>
         private static void ValidateTagName(string tagName)
         {
-            var regex = new Regex(@"^\w+$");
-            if (!regex.IsMatch(tagName))
+            if (!new Regex(@"^((?!#)[\S])*$").IsMatch(tagName))
             {
                 throw new ArgumentException("'tagName' parameter contains invalid characters: " + tagName);
             }
